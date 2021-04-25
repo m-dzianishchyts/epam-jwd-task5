@@ -1,6 +1,6 @@
 package by.jwd.denishchits.service;
 
-public class InvalidArrayException extends Exception{
+public class InvalidArrayException extends Exception {
     public InvalidArrayException() {
     }
 

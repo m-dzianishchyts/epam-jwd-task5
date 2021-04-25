@@ -15,34 +15,6 @@ public class CommandLineArgumentUtils {
     private CommandLineArgumentUtils() {
     }
 
-    public static Optional<String> extractUsername(String[] arguments) {
-        if (arguments == null) {
-            return Optional.empty();
-        }
-        for (String argument : arguments) {
-            if (!isOptionArgument(argument)) {
-                return Optional.of(argument);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public static Optional<String> extractLastName(String[] arguments, int position) throws IllegalValueException {
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
-        if (arguments == null || arguments.length < position + 1) {
-            return Optional.empty();
-        }
-        Predicate<String> lastNamePredicate = Pattern.compile("^[a-z ,.'-]+$", Pattern.CASE_INSENSITIVE).asPredicate();
-        String argument = arguments[position];
-        if (lastNamePredicate.test(argument)) {
-            return Optional.of(argument);
-        } else {
-            return Optional.empty();
-        }
-    }
-
     public static OptionalInt extractInteger(String[] arguments, int position)
             throws IllegalValueException, CommandLineArgumentException {
         if (position < 0) {
@@ -58,16 +30,6 @@ public class CommandLineArgumentUtils {
         } catch (NumberFormatException e) {
             throw new CommandLineArgumentException("Argument is not an integer.", e);
         }
-    }
-
-    public static Optional<String> extractPassword(String[] arguments, int position) throws IllegalValueException {
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
-        if (arguments == null || arguments.length < position + 1) {
-            return Optional.empty();
-        }
-        return Optional.of(arguments[position]);
     }
 
     public static OptionalInt extractInteger(String[] arguments) throws CommandLineArgumentException {
@@ -113,6 +75,22 @@ public class CommandLineArgumentUtils {
         return integers;
     }
 
+    public static Optional<String> extractLastName(String[] arguments, int position) throws IllegalValueException {
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
+        }
+        if (arguments == null || arguments.length < position + 1) {
+            return Optional.empty();
+        }
+        Predicate<String> lastNamePredicate = Pattern.compile("^[a-z ,.'-]+$", Pattern.CASE_INSENSITIVE).asPredicate();
+        String argument = arguments[position];
+        if (lastNamePredicate.test(argument)) {
+            return Optional.of(argument);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public static Optional<OutputMode> extractOutputMode(String[] arguments) throws CommandLineArgumentException {
         if (arguments.length == 0) {
             return Optional.empty();
@@ -131,17 +109,14 @@ public class CommandLineArgumentUtils {
         return Optional.empty();
     }
 
-    private static boolean isOptionArgument(String argument) {
-        return argument.startsWith("--");
-    }
-
-    private static Optional<OutputMode> findOutputModeByArgument(String argument) {
-        for (OutputMode outputMode : OutputMode.values()) {
-            if (outputMode.getArgument().equals(argument)) {
-                return Optional.of(outputMode);
-            }
+    public static Optional<String> extractPassword(String[] arguments, int position) throws IllegalValueException {
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
         }
-        return Optional.empty();
+        if (arguments == null || arguments.length < position + 1) {
+            return Optional.empty();
+        }
+        return Optional.of(arguments[position]);
     }
 
     public static Optional<ReduceMode> extractReduceMode(String[] arguments) throws CommandLineArgumentException {
@@ -162,6 +137,27 @@ public class CommandLineArgumentUtils {
         return Optional.empty();
     }
 
+    public static Optional<String> extractUsername(String[] arguments) {
+        if (arguments == null) {
+            return Optional.empty();
+        }
+        for (String argument : arguments) {
+            if (!isOptionArgument(argument)) {
+                return Optional.of(argument);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<OutputMode> findOutputModeByArgument(String argument) {
+        for (OutputMode outputMode : OutputMode.values()) {
+            if (outputMode.getArgument().equals(argument)) {
+                return Optional.of(outputMode);
+            }
+        }
+        return Optional.empty();
+    }
+
     private static Optional<ReduceMode> findReduceModeByArgument(String argument) {
         for (ReduceMode reduceMode : ReduceMode.values()) {
             if (reduceMode.getArgument().equals(argument)) {
@@ -169,5 +165,9 @@ public class CommandLineArgumentUtils {
             }
         }
         return Optional.empty();
+    }
+
+    private static boolean isOptionArgument(String argument) {
+        return argument.startsWith("--");
     }
 }

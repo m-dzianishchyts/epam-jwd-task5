@@ -16,15 +16,15 @@ public enum ReduceMode {
         this.identity = identity;
     }
 
+    public String getArgument() {
+        return argument;
+    }
+
     public IntBinaryOperator getBinaryOperator() {
         return binaryOperator;
     }
 
     public int getIdentity() {
         return identity;
-    }
-
-    public String getArgument() {
-        return argument;
     }
 }

@@ -1,12 +1,12 @@
 package by.jwd.denishchits.task3.main;
 
+import by.jwd.denishchits.service.IllegalValueException;
 import by.jwd.denishchits.service.InvalidArrayException;
 import by.jwd.denishchits.service.Printer;
 import by.jwd.denishchits.service.PrinterArgumentException;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentException;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentUtils;
 import by.jwd.denishchits.service.arguments.OutputMode;
-import by.jwd.denishchits.service.IllegalValueException;
 import by.jwd.denishchits.task3.util.PrimitiveArrayUtils;
 import by.jwd.denishchits.task3.util.RandomUtil;
 
@@ -16,8 +16,8 @@ import java.util.OptionalInt;
 public class RandomNumber {
 
     private static final OutputMode DEFAULT_OUTPUT_MODE = OutputMode.SINGLE_LINE;
-    private static final double MIN_VALUE = 0;
     private static final double MAX_VALUE = 100;
+    private static final double MIN_VALUE = 0;
 
     public static void main(String[] args) {
         try {

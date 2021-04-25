@@ -1,10 +1,10 @@
 package by.jwd.denishchits.task2.main;
 
+import by.jwd.denishchits.service.InvalidArrayException;
 import by.jwd.denishchits.service.Printer;
 import by.jwd.denishchits.service.PrinterArgumentException;
 import by.jwd.denishchits.service.arguments.OutputMode;
 import by.jwd.denishchits.task2.util.ArrayUtils;
-import by.jwd.denishchits.service.InvalidArrayException;
 
 import java.util.List;
 
