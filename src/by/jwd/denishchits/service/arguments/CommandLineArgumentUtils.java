@@ -2,8 +2,12 @@ package by.jwd.denishchits.service.arguments;
 
 import by.jwd.denishchits.service.IllegalValueException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -135,6 +139,28 @@ public class CommandLineArgumentUtils {
             }
         }
         return Optional.empty();
+    }
+
+    public static Optional<Calendar> extractDate(String[] arguments, SimpleDateFormat dateFormat, int position)
+            throws IllegalValueException, CommandLineArgumentException {
+        if (dateFormat == null) {
+            throw new IllegalValueException("Format cannot be null.");
+        }
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
+        }
+        if (arguments == null || arguments.length < position + 1) {
+            return Optional.empty();
+        }
+        String argument = arguments[position];
+        try {
+            Date date = dateFormat.parse(argument);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            return Optional.of(calendar);
+        } catch (ParseException e) {
+            throw new CommandLineArgumentException("Invalid date.", e);
+        }
     }
 
     public static Optional<String> extractUsername(String[] arguments) {
