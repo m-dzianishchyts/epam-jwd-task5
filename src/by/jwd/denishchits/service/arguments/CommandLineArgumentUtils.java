@@ -19,6 +19,13 @@ public class CommandLineArgumentUtils {
         return Optional.empty();
     }
 
+    public static Optional<String> extractPassword(String[] arguments) {
+        if (arguments == null || arguments.length == 0) {
+            return Optional.empty();
+        }
+        return Optional.of(arguments[0]);
+    }
+
     public static Optional<Integer> extractInteger(String[] arguments) throws CommandLineArgumentException {
         if (arguments == null) {
             return Optional.empty();
