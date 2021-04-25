@@ -1,5 +1,7 @@
 package by.jwd.denishchits.task3.util;
 
+import by.jwd.denishchits.service.IllegalValueException;
+
 public class RandomUtil {
 
     public static double[] generateRandomNumbers(int amount, double minValue, double maxValue)

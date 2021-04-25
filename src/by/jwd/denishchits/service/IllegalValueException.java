@@ -1,4 +1,4 @@
-package by.jwd.denishchits.task3.util;
+package by.jwd.denishchits.service;
 
 public class IllegalValueException extends Exception {
     public IllegalValueException() {

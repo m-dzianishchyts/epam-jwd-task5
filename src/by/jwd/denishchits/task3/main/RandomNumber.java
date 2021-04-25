@@ -6,12 +6,12 @@ import by.jwd.denishchits.service.PrinterArgumentException;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentException;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentUtils;
 import by.jwd.denishchits.service.arguments.OutputMode;
-import by.jwd.denishchits.task3.util.IllegalValueException;
+import by.jwd.denishchits.service.IllegalValueException;
 import by.jwd.denishchits.task3.util.PrimitiveArrayUtils;
 import by.jwd.denishchits.task3.util.RandomUtil;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.OptionalInt;
 
 public class RandomNumber {
 
@@ -23,11 +23,11 @@ public class RandomNumber {
         try {
             var optionalOutputMode = CommandLineArgumentUtils.extractOutputMode(args);
             OutputMode outputMode = optionalOutputMode.orElse(DEFAULT_OUTPUT_MODE);
-            Optional<Integer> optionalInteger = CommandLineArgumentUtils.extractInteger(args);
+            OptionalInt optionalInteger = CommandLineArgumentUtils.extractInteger(args);
             if (optionalInteger.isEmpty()) {
                 throw new CommandLineArgumentException("No random numbers amount provided.");
             }
-            int amount = optionalInteger.get();
+            int amount = optionalInteger.getAsInt();
             double[] randomNumbers = RandomUtil.generateRandomNumbers(amount, MIN_VALUE, MAX_VALUE);
             List<Double> randomNumbersList = PrimitiveArrayUtils.toList(randomNumbers);
             Printer.printSeveral(randomNumbersList, outputMode);
