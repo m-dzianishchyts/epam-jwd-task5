@@ -4,6 +4,7 @@ import by.jwd.denishchits.service.Printer;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentUtils;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Password {
 
