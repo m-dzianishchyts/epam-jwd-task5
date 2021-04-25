@@ -2,7 +2,7 @@ package by.jwd.denishchits.task2.main;
 
 import by.jwd.denishchits.service.Printer;
 import by.jwd.denishchits.task2.util.ArrayUtils;
-import by.jwd.denishchits.task2.util.InvalidArrayException;
+import by.jwd.denishchits.service.InvalidArrayException;
 
 import java.util.List;
 

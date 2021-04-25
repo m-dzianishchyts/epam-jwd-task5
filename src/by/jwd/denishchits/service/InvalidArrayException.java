@@ -1,4 +1,4 @@
-package by.jwd.denishchits.task2.util;
+package by.jwd.denishchits.service;
 
 public class InvalidArrayException extends Exception{
     public InvalidArrayException() {

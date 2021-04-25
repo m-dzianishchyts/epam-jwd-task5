@@ -1,10 +1,8 @@
 package by.jwd.denishchits.task2.util;
 
+import by.jwd.denishchits.service.InvalidArrayException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ArrayUtils {

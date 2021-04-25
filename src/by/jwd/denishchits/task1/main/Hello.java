@@ -1,7 +1,7 @@
 package by.jwd.denishchits.task1.main;
 
 import by.jwd.denishchits.service.Printer;
-import by.jwd.denishchits.task1.cmd.CommandLineArgumentUtils;
+import by.jwd.denishchits.service.arguments.CommandLineArgumentUtils;
 import by.jwd.denishchits.task1.util.HelloUtils;
 import by.jwd.denishchits.task1.util.InvalidUsernameException;
 
