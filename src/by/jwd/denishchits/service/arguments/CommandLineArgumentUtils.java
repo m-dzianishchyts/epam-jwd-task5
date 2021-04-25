@@ -1,9 +1,14 @@
 package by.jwd.denishchits.service.arguments;
 
+import by.jwd.denishchits.service.IllegalValueException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class CommandLineArgumentUtils {
 
@@ -22,28 +27,64 @@ public class CommandLineArgumentUtils {
         return Optional.empty();
     }
 
-    public static Optional<String> extractPassword(String[] arguments) {
-        if (arguments == null || arguments.length == 0) {
+    public static Optional<String> extractLastName(String[] arguments, int position) throws IllegalValueException {
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
+        }
+        if (arguments == null || arguments.length < position + 1) {
             return Optional.empty();
         }
-        return Optional.of(arguments[0]);
+        Predicate<String> lastNamePredicate = Pattern.compile("^[a-z ,.'-]+$", Pattern.CASE_INSENSITIVE).asPredicate();
+        String argument = arguments[position];
+        if (lastNamePredicate.test(argument)) {
+            return Optional.of(argument);
+        } else {
+            return Optional.empty();
+        }
     }
 
-    public static Optional<Integer> extractInteger(String[] arguments) throws CommandLineArgumentException {
-        if (arguments == null) {
+    public static OptionalInt extractInteger(String[] arguments, int position)
+            throws IllegalValueException, CommandLineArgumentException {
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
+        }
+        if (arguments == null || arguments.length < position + 1) {
+            return OptionalInt.empty();
+        }
+        String argument = arguments[position];
+        try {
+            int number = Integer.parseInt(argument);
+            return OptionalInt.of(number);
+        } catch (NumberFormatException e) {
+            throw new CommandLineArgumentException("Argument is not an integer.", e);
+        }
+    }
+
+    public static Optional<String> extractPassword(String[] arguments, int position) throws IllegalValueException {
+        if (position < 0) {
+            throw new IllegalValueException("Position in arguments cannot be negative.");
+        }
+        if (arguments == null || arguments.length < position + 1) {
             return Optional.empty();
+        }
+        return Optional.of(arguments[position]);
+    }
+
+    public static OptionalInt extractInteger(String[] arguments) throws CommandLineArgumentException {
+        if (arguments == null) {
+            return OptionalInt.empty();
         }
         for (String argument : arguments) {
             if (!isOptionArgument(argument)) {
                 try {
-                    Integer number = Integer.parseInt(argument);
-                    return Optional.of(number);
+                    int number = Integer.parseInt(argument);
+                    return OptionalInt.of(number);
                 } catch (NumberFormatException e) {
                     throw new CommandLineArgumentException("Argument is not an integer.", e);
                 }
             }
         }
-        return Optional.empty();
+        return OptionalInt.empty();
     }
 
     public static List<Integer> extractIntegers(String[] arguments) throws CommandLineArgumentException {
