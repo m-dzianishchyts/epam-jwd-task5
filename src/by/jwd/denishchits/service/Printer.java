@@ -44,5 +44,6 @@ public class Printer {
         for (Object object : list) {
             System.out.print(object + " ");
         }
+        System.out.println();
     }
 }
