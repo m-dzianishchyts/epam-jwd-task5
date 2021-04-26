@@ -5,7 +5,7 @@ import by.jwd.denishchits.service.arguments.OutputMode;
 import java.util.List;
 import java.util.Objects;
 
-public class Printer {
+public final class Printer {
 
     private Printer() {
     }
@@ -15,7 +15,7 @@ public class Printer {
         System.err.println("Error: " + message);
     }
 
-    public static void printSeveral(List<?> list, OutputMode outputMode) throws PrinterArgumentException {
+    public static void printSeveral(List<?> list, OutputMode outputMode) throws InvalidArgumentException {
         switch (outputMode) {
             case MULTILINE:
                 printSeveralMultiLine(list);
@@ -28,18 +28,18 @@ public class Printer {
         }
     }
 
-    private static void printSeveralMultiLine(List<?> list) throws PrinterArgumentException {
+    private static void printSeveralMultiLine(List<?> list) throws InvalidArgumentException {
         if (list == null) {
-            throw new PrinterArgumentException("List of objects cannot be null.");
+            throw new InvalidArgumentException("List of objects cannot be null.");
         }
         for (Object object : list) {
             System.out.println(object);
         }
     }
 
-    private static void printSeveralSingleLine(List<?> list) throws PrinterArgumentException {
+    private static void printSeveralSingleLine(List<?> list) throws InvalidArgumentException {
         if (list == null) {
-            throw new PrinterArgumentException("List of objects cannot be null.");
+            throw new InvalidArgumentException("List of objects cannot be null.");
         }
         for (Object object : list) {
             System.out.print(object + " ");

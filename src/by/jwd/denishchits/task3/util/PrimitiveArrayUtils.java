@@ -1,15 +1,18 @@
 package by.jwd.denishchits.task3.util;
 
-import by.jwd.denishchits.service.InvalidArrayException;
+import by.jwd.denishchits.service.InvalidArgumentException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrimitiveArrayUtils {
+public final class PrimitiveArrayUtils {
 
-    public static List<Double> toList(double[] array) throws InvalidArrayException {
+    private PrimitiveArrayUtils() {
+    }
+
+    public static List<Double> toList(double[] array) throws InvalidArgumentException {
         if (array == null) {
-            throw new InvalidArrayException("Array cannot be null.");
+            throw new InvalidArgumentException("Array cannot be null.");
         }
         List<Double> list = new ArrayList<>(array.length);
         for (double value : array) {

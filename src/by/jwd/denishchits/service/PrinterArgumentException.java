@@ -1,6 +1,7 @@
 package by.jwd.denishchits.service;
 
-public class PrinterArgumentException extends Exception {
+public class PrinterArgumentException extends InvalidArgumentException {
+
     public PrinterArgumentException() {
     }
 

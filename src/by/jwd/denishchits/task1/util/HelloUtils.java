@@ -1,6 +1,6 @@
 package by.jwd.denishchits.task1.util;
 
-public class HelloUtils {
+public final class HelloUtils {
 
     private HelloUtils() {
     }

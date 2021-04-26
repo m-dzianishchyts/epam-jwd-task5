@@ -1,17 +1,18 @@
 package by.jwd.denishchits.task5.util;
 
+import by.jwd.denishchits.service.InvalidArgumentException;
 import by.jwd.denishchits.service.arguments.ReduceMode;
 
 import java.util.List;
 
-public class ReduceUtils {
+public final class ReduceUtils {
 
     private ReduceUtils() {
     }
 
-    public static int reduceInts(List<Integer> integers, ReduceMode reduceMode) throws InvalidCollectionException {
+    public static int reduceInts(List<Integer> integers, ReduceMode reduceMode) throws InvalidArgumentException {
         if (integers == null || integers.isEmpty()) {
-            throw new InvalidCollectionException("List of numbers cannot be null or empty.");
+            throw new InvalidArgumentException("List of numbers cannot be null or empty.");
         }
         int accumulator = reduceMode.getIdentity();
         for (Integer integer : integers) {

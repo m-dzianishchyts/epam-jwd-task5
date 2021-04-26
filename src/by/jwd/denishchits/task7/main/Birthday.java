@@ -1,6 +1,6 @@
 package by.jwd.denishchits.task7.main;
 
-import by.jwd.denishchits.service.IllegalValueException;
+import by.jwd.denishchits.service.InvalidArgumentException;
 import by.jwd.denishchits.service.Printer;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentException;
 import by.jwd.denishchits.service.arguments.CommandLineArgumentUtils;
@@ -10,13 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Optional;
 
-public class Birthday {
+public final class Birthday {
 
     private static final String LOCAL_DATE_PATTERN = "dd.MM.yyyy";
 
+    private Birthday() {
+    }
+
     public static void main(String[] args) {
         try {
-            Calendar birthDate = extractBirthDate(args);
+            Calendar birthDate = defineBirthDate(args);
             String dayOfWeek = DateUtils.defineDayOfWeek(birthDate);
             String birthDateAsString = extractDateAsString(birthDate);
             System.out.printf("It looks like %s was %s.\n", birthDateAsString, dayOfWeek);
@@ -25,12 +28,12 @@ public class Birthday {
             if (DateUtils.isTodayAnnually(birthDate)) {
                 System.out.println("Happy birthday!");
             }
-        } catch (IllegalValueException | CommandLineArgumentException e) {
+        } catch (InvalidArgumentException | CommandLineArgumentException e) {
             Printer.printErrorMessage(e.getMessage());
         }
     }
 
-    private static int calculateAge(Calendar birthDate) throws IllegalValueException {
+    private static int calculateAge(Calendar birthDate) throws InvalidArgumentException {
         Calendar now = Calendar.getInstance();
         int age = DateUtils.calculateDiffInYears(now, birthDate);
         return age;
@@ -42,8 +45,8 @@ public class Birthday {
         return birthDateAsString;
     }
 
-    private static Calendar extractBirthDate(String[] args)
-            throws IllegalValueException, CommandLineArgumentException {
+    private static Calendar defineBirthDate(String[] args)
+            throws InvalidArgumentException, CommandLineArgumentException {
         SimpleDateFormat dateFormat = new SimpleDateFormat(LOCAL_DATE_PATTERN);
         Optional<Calendar> optionalBirthDate = CommandLineArgumentUtils.extractDate(args, dateFormat, 0);
         if (optionalBirthDate.isEmpty()) {

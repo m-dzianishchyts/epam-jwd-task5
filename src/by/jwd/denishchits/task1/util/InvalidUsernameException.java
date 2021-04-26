@@ -1,6 +1,9 @@
 package by.jwd.denishchits.task1.util;
 
-public class InvalidUsernameException extends Exception {
+import by.jwd.denishchits.service.InvalidArgumentException;
+
+public class InvalidUsernameException extends InvalidArgumentException {
+
     public InvalidUsernameException() {
     }
 

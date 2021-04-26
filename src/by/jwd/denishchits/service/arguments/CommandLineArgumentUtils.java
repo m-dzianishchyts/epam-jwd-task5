@@ -1,6 +1,6 @@
 package by.jwd.denishchits.service.arguments;
 
-import by.jwd.denishchits.service.IllegalValueException;
+import by.jwd.denishchits.service.InvalidArgumentException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,16 +14,14 @@ import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class CommandLineArgumentUtils {
+public final class CommandLineArgumentUtils {
 
     private CommandLineArgumentUtils() {
     }
 
     public static OptionalInt extractInteger(String[] arguments, int position)
-            throws IllegalValueException, CommandLineArgumentException {
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
+            throws InvalidArgumentException, CommandLineArgumentException {
+        checkPosition(position);
         if (arguments == null || arguments.length < position + 1) {
             return OptionalInt.empty();
         }
@@ -79,10 +77,8 @@ public class CommandLineArgumentUtils {
         return integers;
     }
 
-    public static Optional<String> extractLastName(String[] arguments, int position) throws IllegalValueException {
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
+    public static Optional<String> extractLastName(String[] arguments, int position) throws InvalidArgumentException {
+        checkPosition(position);
         if (arguments == null || arguments.length < position + 1) {
             return Optional.empty();
         }
@@ -95,7 +91,7 @@ public class CommandLineArgumentUtils {
         }
     }
 
-    public static Optional<OutputMode> extractOutputMode(String[] arguments) throws CommandLineArgumentException {
+    public static Optional<OutputMode> extractOutputMode(String[] arguments) {
         if (arguments.length == 0) {
             return Optional.empty();
         }
@@ -113,17 +109,15 @@ public class CommandLineArgumentUtils {
         return Optional.empty();
     }
 
-    public static Optional<String> extractPassword(String[] arguments, int position) throws IllegalValueException {
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
+    public static Optional<String> extractPassword(String[] arguments, int position) throws InvalidArgumentException {
+        checkPosition(position);
         if (arguments == null || arguments.length < position + 1) {
             return Optional.empty();
         }
         return Optional.of(arguments[position]);
     }
 
-    public static Optional<ReduceMode> extractReduceMode(String[] arguments) throws CommandLineArgumentException {
+    public static Optional<ReduceMode> extractReduceMode(String[] arguments) {
         if (arguments.length == 0) {
             return Optional.empty();
         }
@@ -142,13 +136,11 @@ public class CommandLineArgumentUtils {
     }
 
     public static Optional<Calendar> extractDate(String[] arguments, SimpleDateFormat dateFormat, int position)
-            throws IllegalValueException, CommandLineArgumentException {
+            throws InvalidArgumentException, CommandLineArgumentException {
         if (dateFormat == null) {
-            throw new IllegalValueException("Format cannot be null.");
+            throw new InvalidArgumentException("Format cannot be null.");
         }
-        if (position < 0) {
-            throw new IllegalValueException("Position in arguments cannot be negative.");
-        }
+        checkPosition(position);
         if (arguments == null || arguments.length < position + 1) {
             return Optional.empty();
         }
@@ -173,6 +165,12 @@ public class CommandLineArgumentUtils {
             }
         }
         return Optional.empty();
+    }
+
+    private static void checkPosition(int position) throws InvalidArgumentException {
+        if (position < 0) {
+            throw new InvalidArgumentException("Position in arguments cannot be negative.");
+        }
     }
 
     private static Optional<OutputMode> findOutputModeByArgument(String argument) {
